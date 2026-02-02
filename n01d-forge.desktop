@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=n01d-forge
+Comment=Secure Cross-Platform Image Burner with Encryption
+Exec=/home/antics/n01d-forge/src-tauri/target/release/n01d-forge
+Icon=/home/antics/n01d-forge/assets/n01d-forge-icon.svg
+Terminal=false
+Type=Application
+Categories=Utility;System;
+Keywords=usb;flash;burn;iso;image;encryption;luks;veracrypt;
+StartupNotify=true

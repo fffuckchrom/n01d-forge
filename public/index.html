@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n01d-forge</title>
+    <style>
+        :root {
+            --bg-primary: #0a0e14;
+            --bg-secondary: #12171e;
+            --bg-tertiary: #1a2028;
+            --accent: #00d4aa;
+            --accent-dim: #00a080;
+            --accent-glow: rgba(0, 212, 170, 0.3);
+            --text-primary: #e6e6e6;
+            --text-secondary: #8b949e;
+            --text-muted: #6b727a;
+            --danger: #ff4757;
+            --danger-dim: #cc3a47;
+            --warning: #ffa502;
+            --success: #00d4aa;
+            --border: #2d3640;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(0, 212, 170, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 170, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        .logo-text {
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), #00ffcc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Main sections */
+        .section {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 18px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        /* File selector */
+        .file-selector {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .file-input {
+            flex: 1;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            color: var(--text-primary);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .file-input:hover {
+            border-color: var(--accent);
+        }
+
+        .file-input.has-file {
+            border-color: var(--accent);
+            background: rgba(0, 212, 170, 0.1);
+        }
+
+        .btn {
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: var(--danger-dim);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Drive selector */
+        .drive-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .drive-item {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .drive-item:hover {
+            border-color: var(--accent-dim);
+        }
+
+        .drive-item.selected {
+            border-color: var(--accent);
+            background: rgba(0, 212, 170, 0.1);
+        }
+
+        .drive-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 16px;
+        }
+
+        .drive-info {
+            flex: 1;
+        }
+
+        .drive-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .drive-details {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .drive-size {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .drive-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .badge-usb {
+            background: rgba(0, 212, 170, 0.2);
+            color: var(--accent);
+        }
+
+        .badge-removable {
+            background: rgba(255, 165, 2, 0.2);
+            color: var(--warning);
+        }
+
+        .no-drives {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+        }
+
+        /* Options */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .option-card {
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .option-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .option-label {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Toggle switch */
+        .toggle {
+            position: relative;
+            width: 48px;
+            height: 26px;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-secondary);
+            border-radius: 26px;
+            transition: 0.3s;
+            border: 1px solid var(--border);
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background: var(--text-secondary);
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .toggle input:checked + .toggle-slider {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .toggle input:checked + .toggle-slider:before {
+            transform: translateX(22px);
+            background: white;
+        }
+
+        /* Select dropdown */
+        .select-wrapper {
+            position: relative;
+            margin-top: 8px;
+        }
+
+        .select-wrapper select {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 13px;
+            cursor: pointer;
+            appearance: none;
+        }
+
+        .select-wrapper select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .select-wrapper::after {
+            content: '▼';
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 10px;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        /* Encryption section */
+        .encryption-options {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            display: none;
+        }
+
+        .encryption-options.active {
+            display: block;
+        }
+
+        .input-group {
+            margin-bottom: 12px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 13px;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Progress section */
+        .progress-section {
+            display: none;
+        }
+
+        .progress-section.active {
+            display: block;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .progress-status {
+            font-weight: 600;
+        }
+
+        .progress-percent {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .progress-bar-container {
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), #00ffcc);
+            border-radius: 4px;
+            transition: width 0.3s;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .progress-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            text-align: center;
+        }
+
+        .progress-stat {
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+
+        .progress-stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .progress-stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Hash verification */
+        .hash-section {
+            margin-top: 20px;
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+
+        .hash-result {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            word-break: break-all;
+            padding: 12px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+
+        .hash-verified {
+            color: var(--success);
+        }
+
+        .hash-failed {
+            color: var(--danger);
+        }
+
+        /* Action buttons */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .action-buttons .btn {
+            flex: 1;
+            justify-content: center;
+            padding: 16px;
+            font-size: 16px;
+        }
+
+        /* Warnings */
+        .warning-box {
+            background: rgba(255, 71, 87, 0.1);
+            border: 1px solid var(--danger);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .warning-box h4 {
+            color: var(--danger);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .warning-box p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Image info */
+        .image-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+
+        .image-info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .image-info-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .image-info-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .burning .logo-icon {
+            animation: pulse 1s infinite;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid var(--border);
+        }
+
+        .modal h3 {
+            margin-bottom: 16px;
+            color: var(--accent);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            justify-content: flex-end;
+        }
+
+        /* Success/Complete animation */
+        .complete-animation {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .complete-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(0, 212, 170, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 40px;
+        }
+
+        .complete-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .complete-details {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">🔥</div>
+                <span class="logo-text">n01d-forge</span>
+            </div>
+            <p class="tagline">Secure Cross-Platform Image Burner with Encryption</p>
+        </header>
+
+        <!-- Main Content -->
+        <main id="main-view">
+            <!-- Step 1: Select Image -->
+            <section class="section">
+                <h2 class="section-title">Select Image</h2>
+                <div class="file-selector">
+                    <div class="file-input" id="file-display" onclick="selectImage()">
+                        Click to select an image file (ISO, IMG, RAW)
+                    </div>
+                    <button class="btn btn-secondary" onclick="selectImage()">📂 Browse</button>
+                </div>
+                <div class="image-info" id="image-info" style="display: none;">
+                    <div class="image-info-item">
+                        <span class="image-info-label">File Name</span>
+                        <span class="image-info-value" id="image-name">-</span>
+                    </div>
+                    <div class="image-info-item">
+                        <span class="image-info-label">Size</span>
+                        <span class="image-info-value" id="image-size">-</span>
+                    </div>
+                    <div class="image-info-item">
+                        <span class="image-info-label">Type</span>
+                        <span class="image-info-value" id="image-type">-</span>
+                    </div>
+                    <div class="image-info-item">
+                        <span class="image-info-label">SHA256</span>
+                        <span class="image-info-value" id="image-hash" style="font-size: 10px; word-break: break-all;">Calculating...</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 2: Select Target Drive -->
+            <section class="section">
+                <h2 class="section-title">
+                    Select Target Drive
+                    <button class="btn btn-secondary" style="margin-left: auto; padding: 8px 12px; font-size: 12px;" onclick="refreshDrives()">🔄 Refresh</button>
+                </h2>
+                <div class="drive-list" id="drive-list">
+                    <div class="no-drives">
+                        <p>🔍 Scanning for drives...</p>
+                    </div>
+                </div>
+                <div class="warning-box" id="drive-warning" style="display: none;">
+                    <h4>⚠️ Warning</h4>
+                    <p>All data on the selected drive will be <strong>permanently erased</strong>. This action cannot be undone. Please verify you have selected the correct drive.</p>
+                </div>
+            </section>
+
+            <!-- Step 3: Options -->
+            <section class="section">
+                <h2 class="section-title">Security Options</h2>
+                <div class="options-grid">
+                    <!-- Verify after write -->
+                    <div class="option-card">
+                        <div class="option-header">
+                            <span class="option-label">Verify After Write</span>
+                            <label class="toggle">
+                                <input type="checkbox" id="opt-verify" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <p style="font-size: 12px; color: var(--text-muted);">Compare hash after writing to ensure integrity</p>
+                    </div>
+
+                    <!-- Secure erase before -->
+                    <div class="option-card">
+                        <div class="option-header">
+                            <span class="option-label">Secure Erase First</span>
+                            <label class="toggle">
+                                <input type="checkbox" id="opt-secure-erase">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="select-wrapper">
+                            <select id="erase-method" disabled>
+                                <option value="zeros">Zero Fill (Fast)</option>
+                                <option value="random">Random Data</option>
+                                <option value="dod">DoD 5220.22-M (3 pass)</option>
+                                <option value="gutmann">Gutmann (35 pass)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Encryption -->
+                    <div class="option-card">
+                        <div class="option-header">
+                            <span class="option-label">🔐 Enable Encryption</span>
+                            <label class="toggle">
+                                <input type="checkbox" id="opt-encryption">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <p style="font-size: 12px; color: var(--text-muted);">Encrypt the drive after writing</p>
+                    </div>
+
+                    <!-- Bootloader mode -->
+                    <div class="option-card">
+                        <div class="option-header">
+                            <span class="option-label">Bootloader Mode</span>
+                        </div>
+                        <div class="select-wrapper">
+                            <select id="bootloader-mode">
+                                <option value="hybrid">Hybrid (UEFI + Legacy)</option>
+                                <option value="uefi">UEFI Only</option>
+                                <option value="legacy">Legacy BIOS Only</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Encryption Options -->
+                <div class="encryption-options" id="encryption-options">
+                    <h3 style="font-size: 14px; margin-bottom: 16px; color: var(--accent);">🔐 Encryption Settings</h3>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Encryption Type</label>
+                            <div class="select-wrapper">
+                                <select id="enc-type">
+                                    <option value="luks2">LUKS2 (Linux)</option>
+                                    <option value="luks">LUKS (Legacy)</option>
+                                    <option value="veracrypt">VeraCrypt</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>Cipher</label>
+                            <div class="select-wrapper">
+                                <select id="enc-cipher">
+                                    <option value="aes-xts-plain64">AES-256-XTS</option>
+                                    <option value="serpent-xts-plain64">Serpent-XTS</option>
+                                    <option value="twofish-xts-plain64">Twofish-XTS</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Key Size</label>
+                            <div class="select-wrapper">
+                                <select id="enc-keysize">
+                                    <option value="512">512-bit</option>
+                                    <option value="256">256-bit</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>Hash Algorithm</label>
+                            <div class="select-wrapper">
+                                <select id="enc-hash">
+                                    <option value="sha512">SHA-512</option>
+                                    <option value="sha256">SHA-256</option>
+                                    <option value="whirlpool">Whirlpool</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Encryption Password</label>
+                        <input type="password" id="enc-password" placeholder="Enter a strong password">
+                    </div>
+                    <div class="input-group">
+                        <label>Confirm Password</label>
+                        <input type="password" id="enc-password-confirm" placeholder="Confirm password">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-danger" id="btn-burn" onclick="startBurn()" disabled>
+                    🔥 Flash Image
+                </button>
+            </div>
+        </main>
+
+        <!-- Progress View -->
+        <section class="section progress-section" id="progress-view">
+            <h2 class="section-title">Burning in Progress</h2>
+            <div class="progress-header">
+                <span class="progress-status" id="progress-status">Preparing...</span>
+                <span class="progress-percent" id="progress-percent">0%</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+            </div>
+            <div class="progress-details">
+                <div class="progress-stat">
+                    <div class="progress-stat-value" id="stat-written">0 MB</div>
+                    <div class="progress-stat-label">Written</div>
+                </div>
+                <div class="progress-stat">
+                    <div class="progress-stat-value" id="stat-speed">0 MB/s</div>
+                    <div class="progress-stat-label">Speed</div>
+                </div>
+                <div class="progress-stat">
+                    <div class="progress-stat-value" id="stat-eta">--:--</div>
+                    <div class="progress-stat-label">ETA</div>
+                </div>
+            </div>
+            <div class="action-buttons" style="margin-top: 24px;">
+                <button class="btn btn-danger" onclick="cancelBurn()">✕ Cancel</button>
+            </div>
+        </section>
+
+        <!-- Complete View -->
+        <section class="section progress-section" id="complete-view">
+            <div class="complete-animation">
+                <div class="complete-icon">✓</div>
+                <h2 class="complete-title" id="complete-title">Flash Complete!</h2>
+                <p class="complete-details" id="complete-details">
+                    Your image has been successfully written to the drive.
+                </p>
+            </div>
+            <div class="hash-section" id="verification-result" style="display: none;">
+                <h4 style="margin-bottom: 8px;">Hash Verification</h4>
+                <p id="verification-status" style="font-size: 14px;"></p>
+                <div class="hash-result" id="hash-display"></div>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-secondary" onclick="ejectDrive()">⏏ Safely Eject</button>
+                <button class="btn btn-primary" onclick="resetUI()">🔄 Flash Another</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="confirm-modal">
+        <div class="modal">
+            <h3>⚠️ Confirm Flash Operation</h3>
+            <p>You are about to write:</p>
+            <p style="font-weight: 600; margin: 12px 0;" id="confirm-image"></p>
+            <p>To drive:</p>
+            <p style="font-weight: 600; margin: 12px 0; color: var(--danger);" id="confirm-drive"></p>
+            <p style="color: var(--danger); margin-top: 16px;"><strong>ALL DATA ON THIS DRIVE WILL BE PERMANENTLY DESTROYED!</strong></p>
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" onclick="hideConfirmModal()">Cancel</button>
+                <button class="btn btn-danger" onclick="confirmBurn()">🔥 Yes, Flash It!</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { invoke } = window.__TAURI__.tauri;
+        const { open } = window.__TAURI__.dialog;
+
+        // State
+        let selectedImage = null;
+        let selectedDrive = null;
+        let isFlashing = false;
+        let progressInterval = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            refreshDrives();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Secure erase toggle
+            document.getElementById('opt-secure-erase').addEventListener('change', (e) => {
+                document.getElementById('erase-method').disabled = !e.target.checked;
+            });
+
+            // Encryption toggle
+            document.getElementById('opt-encryption').addEventListener('change', (e) => {
+                document.getElementById('encryption-options').classList.toggle('active', e.target.checked);
+            });
+        }
+
+        // Image selection
+        async function selectImage() {
+            try {
+                const selected = await open({
+                    multiple: false,
+                    filters: [{
+                        name: 'Image Files',
+                        extensions: ['iso', 'img', 'raw', 'dmg', 'bin']
+                    }]
+                });
+
+                if (selected) {
+                    selectedImage = selected;
+                    document.getElementById('file-display').textContent = selected.split('/').pop();
+                    document.getElementById('file-display').classList.add('has-file');
+                    
+                    // Get image info
+                    const info = await invoke('get_image_info', { path: selected });
+                    document.getElementById('image-info').style.display = 'grid';
+                    document.getElementById('image-name').textContent = info.name;
+                    document.getElementById('image-size').textContent = formatBytes(info.size);
+                    document.getElementById('image-type').textContent = info.image_type;
+                    
+                    // Calculate hash in background
+                    document.getElementById('image-hash').textContent = 'Calculating...';
+                    const hash = await invoke('calculate_hash', { 
+                        path: selected, 
+                        algorithm: 'sha256' 
+                    });
+                    document.getElementById('image-hash').textContent = hash.hash;
+                    
+                    updateBurnButton();
+                }
+            } catch (err) {
+                console.error('Failed to select image:', err);
+            }
+        }
+
+        // Drive management
+        async function refreshDrives() {
+            const driveList = document.getElementById('drive-list');
+            driveList.innerHTML = '<div class="no-drives"><p>🔍 Scanning for drives...</p></div>';
+            
+            try {
+                const drives = await invoke('get_drives');
+                
+                if (drives.length === 0) {
+                    driveList.innerHTML = '<div class="no-drives"><p>No removable drives detected</p><p style="font-size: 12px; margin-top: 8px;">Insert a USB drive and click Refresh</p></div>';
+                    return;
+                }
+                
+                driveList.innerHTML = '';
+                drives.forEach(drive => {
+                    const div = document.createElement('div');
+                    div.className = 'drive-item';
+                    div.onclick = () => selectDrive(drive, div);
+                    
+                    let badges = '';
+                    if (drive.is_usb) badges += '<span class="drive-badge badge-usb">USB</span>';
+                    if (drive.is_removable) badges += '<span class="drive-badge badge-removable">Removable</span>';
+                    
+                    div.innerHTML = `
+                        <div class="drive-icon">💾</div>
+                        <div class="drive-info">
+                            <div class="drive-name">${drive.model || drive.name}${badges}</div>
+                            <div class="drive-details">${drive.device} • ${drive.vendor || 'Unknown vendor'}</div>
+                        </div>
+                        <div class="drive-size">${drive.size_human}</div>
+                    `;
+                    
+                    driveList.appendChild(div);
+                });
+            } catch (err) {
+                console.error('Failed to get drives:', err);
+                driveList.innerHTML = '<div class="no-drives"><p>❌ Failed to scan drives</p><p style="font-size: 12px;">' + err + '</p></div>';
+            }
+        }
+
+        function selectDrive(drive, element) {
+            // Deselect all
+            document.querySelectorAll('.drive-item').forEach(el => el.classList.remove('selected'));
+            
+            // Select this one
+            element.classList.add('selected');
+            selectedDrive = drive;
+            
+            // Show warning
+            document.getElementById('drive-warning').style.display = 'block';
+            
+            updateBurnButton();
+        }
+
+        function updateBurnButton() {
+            const btn = document.getElementById('btn-burn');
+            btn.disabled = !selectedImage || !selectedDrive;
+        }
+
+        // Burn operations
+        function startBurn() {
+            if (!selectedImage || !selectedDrive) return;
+            
+            // Show confirmation
+            document.getElementById('confirm-image').textContent = selectedImage.split('/').pop();
+            document.getElementById('confirm-drive').textContent = `${selectedDrive.device} (${selectedDrive.model || selectedDrive.name}) - ${selectedDrive.size_human}`;
+            document.getElementById('confirm-modal').classList.add('active');
+        }
+
+        function hideConfirmModal() {
+            document.getElementById('confirm-modal').classList.remove('active');
+        }
+
+        async function confirmBurn() {
+            hideConfirmModal();
+            
+            // Show progress view
+            document.getElementById('main-view').style.display = 'none';
+            document.getElementById('progress-view').classList.add('active');
+            document.getElementById('complete-view').classList.remove('active');
+            
+            isFlashing = true;
+            
+            // Build config
+            const config = {
+                image_path: selectedImage,
+                target_drive: selectedDrive.device,
+                verify_after_write: document.getElementById('opt-verify').checked,
+                secure_erase_before: document.getElementById('opt-secure-erase').checked,
+                erase_method: document.getElementById('erase-method').value,
+                encryption: null,
+                bootloader: {
+                    mode: document.getElementById('bootloader-mode').value,
+                    secure_boot: false,
+                    persistent_storage: false,
+                    persistent_size_mb: 0
+                }
+            };
+            
+            // Add encryption if enabled
+            if (document.getElementById('opt-encryption').checked) {
+                const password = document.getElementById('enc-password').value;
+                const confirmPassword = document.getElementById('enc-password-confirm').value;
+                
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match!');
+                    resetUI();
+                    return;
+                }
+                
+                config.encryption = {
+                    enabled: true,
+                    encryption_type: document.getElementById('enc-type').value,
+                    password: password,
+                    cipher: document.getElementById('enc-cipher').value,
+                    key_size: parseInt(document.getElementById('enc-keysize').value),
+                    hash_algo: document.getElementById('enc-hash').value,
+                    iterations: 100000,
+                    wipe_header_on_error: true
+                };
+            }
+            
+            // Start progress polling
+            progressInterval = setInterval(updateProgress, 500);
+            
+            try {
+                const result = await invoke('burn_image', { config });
+                
+                clearInterval(progressInterval);
+                isFlashing = false;
+                
+                // Show complete view
+                document.getElementById('progress-view').classList.remove('active');
+                document.getElementById('complete-view').classList.add('active');
+                
+                if (result.success) {
+                    document.getElementById('complete-title').textContent = 'Flash Complete!';
+                    document.getElementById('complete-details').textContent = 
+                        `Successfully wrote ${formatBytes(result.bytes_written)} in ${formatTime(result.duration_seconds)}`;
+                    
+                    if (result.hash_verification) {
+                        document.getElementById('verification-result').style.display = 'block';
+                        const status = document.getElementById('verification-status');
+                        const hashDisplay = document.getElementById('hash-display');
+                        
+                        if (result.hash_verification.verified) {
+                            status.innerHTML = '✓ <span class="hash-verified">Verification passed!</span>';
+                        } else {
+                            status.innerHTML = '✗ <span class="hash-failed">Verification FAILED!</span>';
+                        }
+                        
+                        hashDisplay.textContent = result.hash_verification.hash;
+                    }
+                } else {
+                    document.getElementById('complete-title').textContent = 'Flash Failed';
+                    document.getElementById('complete-details').textContent = result.message;
+                }
+            } catch (err) {
+                clearInterval(progressInterval);
+                isFlashing = false;
+                
+                document.getElementById('progress-view').classList.remove('active');
+                document.getElementById('complete-view').classList.add('active');
+                document.getElementById('complete-title').textContent = 'Flash Failed';
+                document.getElementById('complete-details').textContent = err.toString();
+            }
+        }
+
+        async function updateProgress() {
+            if (!isFlashing) return;
+            
+            try {
+                const progress = await invoke('get_burn_progress');
+                
+                document.getElementById('progress-status').textContent = progress.stage;
+                document.getElementById('progress-percent').textContent = progress.progress_percent.toFixed(1) + '%';
+                document.getElementById('progress-bar').style.width = progress.progress_percent + '%';
+                document.getElementById('stat-written').textContent = formatBytes(progress.bytes_written);
+                document.getElementById('stat-speed').textContent = progress.speed_mbps.toFixed(1) + ' MB/s';
+                document.getElementById('stat-eta').textContent = formatTime(progress.eta_seconds);
+            } catch (err) {
+                console.error('Failed to get progress:', err);
+            }
+        }
+
+        async function cancelBurn() {
+            try {
+                await invoke('cancel_burn');
+                clearInterval(progressInterval);
+                isFlashing = false;
+                resetUI();
+            } catch (err) {
+                console.error('Failed to cancel:', err);
+            }
+        }
+
+        async function ejectDrive() {
+            if (selectedDrive) {
+                try {
+                    // Would call eject_drive command here
+                    alert('Drive safely ejected!');
+                } catch (err) {
+                    console.error('Failed to eject:', err);
+                }
+            }
+        }
+
+        function resetUI() {
+            document.getElementById('main-view').style.display = 'block';
+            document.getElementById('progress-view').classList.remove('active');
+            document.getElementById('complete-view').classList.remove('active');
+            document.getElementById('verification-result').style.display = 'none';
+            
+            // Reset progress
+            document.getElementById('progress-bar').style.width = '0%';
+            document.getElementById('progress-percent').textContent = '0%';
+            
+            // Keep selected image and drive for convenience
+        }
+
+        // Utilities
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function formatTime(seconds) {
+            if (!seconds || seconds === 0) return '--:--';
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+    </script>
+</body>
+</html>

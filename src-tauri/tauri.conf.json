@@ -1,0 +1,130 @@
+{
+  "build": {
+    "beforeBuildCommand": "",
+    "beforeDevCommand": "",
+    "devPath": "../public",
+    "distDir": "../public"
+  },
+  "package": {
+    "productName": "n01d-forge",
+    "version": "1.0.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": false,
+      "shell": {
+        "all": false,
+        "open": true,
+        "execute": true,
+        "sidecar": true,
+        "scope": [
+          {
+            "name": "dd",
+            "cmd": "dd",
+            "args": true
+          },
+          {
+            "name": "lsblk",
+            "cmd": "lsblk",
+            "args": true
+          },
+          {
+            "name": "cryptsetup",
+            "cmd": "cryptsetup",
+            "args": true
+          },
+          {
+            "name": "mkfs",
+            "cmd": "mkfs.ext4",
+            "args": true
+          },
+          {
+            "name": "wipefs",
+            "cmd": "wipefs",
+            "args": true
+          }
+        ]
+      },
+      "dialog": {
+        "all": true,
+        "ask": true,
+        "confirm": true,
+        "message": true,
+        "open": true,
+        "save": true
+      },
+      "fs": {
+        "all": true,
+        "readFile": true,
+        "writeFile": true,
+        "readDir": true,
+        "copyFile": true,
+        "createDir": true,
+        "removeDir": true,
+        "removeFile": true,
+        "renameFile": true,
+        "exists": true
+      },
+      "path": {
+        "all": true
+      },
+      "process": {
+        "all": true,
+        "exit": true,
+        "relaunch": true
+      }
+    },
+    "bundle": {
+      "active": true,
+      "category": "Utility",
+      "copyright": "Copyright © 2026 NullSec Team",
+      "deb": {
+        "depends": ["qemu-utils", "cryptsetup", "parted"]
+      },
+      "externalBin": [],
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ],
+      "identifier": "com.nullsec.n01d-forge",
+      "longDescription": "n01d-forge is a secure cross-platform image burner with encryption support. Flash ISOs, IMG files with LUKS/VeraCrypt encryption, secure erase, and hash verification.",
+      "macOS": {
+        "entitlements": null,
+        "exceptionDomain": "",
+        "frameworks": [],
+        "providerShortName": null,
+        "signingIdentity": null
+      },
+      "resources": [],
+      "shortDescription": "Secure Image Burner with Encryption",
+      "targets": "all",
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": ""
+      }
+    },
+    "security": {
+      "csp": null
+    },
+    "updater": {
+      "active": false
+    },
+    "windows": [
+      {
+        "fullscreen": false,
+        "height": 700,
+        "resizable": true,
+        "title": "n01d-forge",
+        "width": 900,
+        "center": true,
+        "decorations": true,
+        "minHeight": 600,
+        "minWidth": 800
+      }
+    ]
+  }
+}
